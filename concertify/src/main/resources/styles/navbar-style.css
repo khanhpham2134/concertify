@@ -1,0 +1,32 @@
+.navbar {
+  -fx-background-color: #272727;
+  -fx-border-color: #181818 #181818 #181818 transparent;
+  -fx-border-width: 2 2 2 0;
+  -fx-border-radius: 0 10 10 0;
+  -fx-background-radius: 0 10 10 0;
+}
+
+.welcome-label {
+  -fx-font-size: 20px;
+  -fx-text-fill: #e5e5e5;
+  -fx-padding: 20px;
+}
+
+.navbar-button {
+  -fx-padding: 10px;
+  -fx-background-color: #e5e5e5;
+  -fx-font-size: 15px;
+  -fx-background-radius: 20px;
+  -fx-cursor: hand;
+  -fx-font-weight: 800;
+}
+
+.logout-button {
+  -fx-padding: 10px;
+  -fx-background-color: #ff8bb4;
+  /* #FE689C */
+  -fx-font-size: 15px;
+  -fx-background-radius: 20px;
+  -fx-cursor: hand;
+  -fx-font-weight: 800;
+}

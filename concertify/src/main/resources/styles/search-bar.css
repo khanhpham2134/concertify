@@ -1,0 +1,28 @@
+.text-field {
+  -fx-padding: 10px;
+  -fx-font-size: 15px;
+  -fx-alignment: center-left;
+  -fx-border-color: #000;
+  -fx-border-radius: 20px;
+  -fx-background-radius: 20px;
+}
+
+.search-button {
+  -fx-padding: 10px;
+  -fx-background-color: #ff8bb4;
+  -fx-border-color: #000;
+  -fx-font-size: 15px;
+  -fx-border-radius: 20px;
+  -fx-background-radius: 20px;
+  -fx-cursor: hand;
+}
+
+.combo-box {
+  -fx-padding: 5px;
+  -fx-font-size: 15px;
+  -fx-alignment: center-left;
+  -fx-border-color: #000;
+  -fx-border-radius: 30px;
+  -fx-background-radius: 25px;
+  -fx-background-color: #FFFFFF;
+}

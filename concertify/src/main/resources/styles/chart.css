@@ -1,0 +1,36 @@
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #ff8bb4;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.combo-box:hover {
+    -fx-border-color: #fd518d;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 5 10;
+}
+
+.chart {
+    -fx-padding: 10;
+    -fx-background-color: white;
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.axis-label {
+    -fx-font-size: 12px;
+}
+
+.chart-bar {
+    -fx-bar-fill: #ff8bb4;
+}
+
+.chart-bar:hover {
+    -fx-bar-fill: #fd518d;
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Leaflet Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+      #map {
+        height: 400px; /* Default height */
+        width: 100%; /* Default width */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      let map;
+
+      function initializeMap(data) {
+        const parsedData = typeof data === "string" ? JSON.parse(data) : data;
+
+        if (!data || data.length === 0) {
+          map.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+              map.removeLayer(layer);
+            }
+          });
+
+          return;
+        }
+
+        const mapData = parsedData.reduce((acc, cur) => {
+          const key = JSON.stringify({ lat: cur.lat, lon: cur.lon });
+          acc[key] = !acc[key] ? [cur] : [...acc[key], cur];
+          return acc;
+        }, {});
+
+        const centroid = Object.keys(mapData)
+          .reduce(
+            (acc, cur) => {
+              const geoloc = JSON.parse(cur);
+              const { lat, lon } = geoloc;
+              acc[0] += lat;
+              acc[1] += lon;
+              return acc;
+            },
+            [0, 0]
+          )
+          .map((data) => data / Object.keys(mapData).length);
+
+        const maxDist = calculateMaxDistanceFromCentroid(mapData, centroid);
+        const zoomLevel = calculateOptimalZoom(maxDist);
+
+        if (map) {
+          map.setView(centroid, zoomLevel);
+          map.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+              map.removeLayer(layer);
+            }
+          });
+        } else {
+          map = L.map("map", {
+            zoomSnap: 0.1,
+            maxZoom: 15,
+            minZoom: 1.5,
+          }).setView(centroid, zoomLevel);
+
+          L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          ).addTo(map);
+        }
+
+        Object.keys(mapData).forEach((key) => {
+          const geoloc = JSON.parse(key);
+          const { lat, lon } = geoloc;
+          const marker = L.marker([lat, lon]).addTo(map);
+
+          const event = mapData[key][0];
+          const popupContent = populatePopup(
+            `${event.locationName} (${event.city ? event.city : ""})`,
+            mapData[key]
+          );
+          marker.bindPopup(popupContent);
+
+          marker.on("click", function () {
+            this.openPopup();
+          });
+        });
+      }
+
+      function populatePopup(location, data) {
+        let popupContent = `
+          <div style="max-height: 200px; overflow-y: auto; padding-right: 10px;">
+            <h1 style="font-size: 20px; font-weight: 700;">${location}</h1>`;
+        data.forEach(
+          (d) =>
+            (popupContent += `
+              <div style="margin: 20px 0; width: 300px; gap: 20px;">
+                <h2 style="margin: 0; font-size: 16px">${d.name}</h2>
+                <h3 style="margin: 0; font-size: 14px; color: gray;">${
+                  typeof d.artistNames === "string" ||
+                  d.artistNames instanceof String ||
+                  d.artistNames === undefined
+                    ? "No artists given"
+                    : d.artistNames.join(", ")
+                }</h2>
+                <h3 style="margin: 0; font-size: 14px; color: gray;">${
+                  d.dateTimeStart
+                }</h2>
+              </div>`)
+        );
+
+        popupContent += `</div>`;
+
+        return popupContent;
+      }
+
+      function calculateMaxDistanceFromCentroid(mapData, centroid) {
+        const maxDist = Object.keys(mapData).reduce((acc, cur) => {
+          const geoloc = JSON.parse(cur);
+          const { lat, lon } = geoloc;
+
+          const distance = L.latLng(centroid).distanceTo(L.latLng([lat, lon]));
+
+          return Math.max(distance, acc);
+        }, 0);
+
+        return maxDist;
+      }
+
+      function calculateOptimalZoom(distance) {
+        const earthCircumference = 40075017;
+        const tileSize = 256;
+        const resolution = distance / 120;
+        const zoom = Math.log2(earthCircumference / (resolution * tileSize));
+        return Math.round(zoom * 10) / 10;
+      }
+    </script>
+  </body>
+</html>

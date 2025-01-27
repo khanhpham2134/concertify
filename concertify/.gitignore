@@ -1,0 +1,5 @@
+target/
+module-info.class
+.DS_Store
+.env
+database/spotify_token.json

@@ -1,0 +1,32 @@
+.login-field {
+  -fx-alignment: center;
+  -fx-padding: 0 40px;
+}
+
+.text-field {
+  -fx-padding: 10px;
+  -fx-font-size: 20px;
+  -fx-alignment: center;
+  -fx-border-color: #000;
+  -fx-border-radius: 20px;
+  -fx-background-radius: 20px;
+}
+
+.auth-button {
+  -fx-padding: 10px;
+  -fx-background-color: #ff8bb4;
+  -fx-border-color: #000;
+  -fx-font-size: 20px;
+  -fx-border-radius: 20px;
+  -fx-background-radius: 20px;
+  -fx-cursor: hand;
+}
+
+.change-form-text {
+  -fx-fill: white;
+}
+
+.call-to-text {
+  -fx-fill: #ff8bb4;
+  -fx-cursor: hand;
+}

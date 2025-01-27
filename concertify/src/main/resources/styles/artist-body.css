@@ -1,0 +1,36 @@
+.button {
+  -fx-padding: 10px;
+  -fx-background-color: #ff8bb4;
+  -fx-border-color: #000;
+  -fx-font-size: 15px;
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
+  -fx-cursor: hand;
+  -fx-font-weight: bold;
+}
+
+.back-button {
+  -fx-padding: 10px;
+  -fx-background-color: #ff8bb4;
+  -fx-border-color: #000;
+  -fx-font-size: 15px;
+  -fx-border-radius: 50%;
+  -fx-background-radius: 50%;
+  -fx-cursor: hand;
+  -fx-font-weight: bold;
+  -fx-pref-width: 50px;
+  -fx-pref-height: 50px;
+}
+
+.tab-button {
+  -fx-padding: 10px;
+  -fx-background-color: #ff8bb4;
+  -fx-border-color: #000;
+  -fx-font-size: 15px;
+  -fx-border-radius: 30px;
+  -fx-background-radius: 30px;
+  -fx-cursor: hand;
+  -fx-font-weight: bold;
+  -fx-pref-width: 200px;
+  -fx-pref-height: 50px;
+}
